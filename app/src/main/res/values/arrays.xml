@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="gugun">
+        <item>전체</item>
+        <item>강남구</item>
+        <item>강동구</item>
+        <item>강북구</item>
+        <item>강서구</item>
+        <item>관악구</item>
+        <item>광진구</item>
+        <item>구로구</item>
+        <item>금천구</item>
+        <item>노원구</item>
+        <item>도봉구</item>
+        <item>동대문구</item>
+        <item>동작구</item>
+        <item>마포구</item>
+        <item>서대문구</item>
+        <item>서초구</item>
+        <item>성동구</item>
+        <item>성북구</item>
+        <item>송파구</item>
+        <item>양천구</item>
+        <item>영등포구</item>
+        <item>용산구</item>
+        <item>은평구</item>
+        <item>종로구</item>
+        <item>중구</item>
+        <item>중랑구</item>
+    </string-array>
+
+    <string-array name="cate">
+        <item>전체</item>
+        <item>생활편의지원</item>
+        <item>주거환경</item>
+        <item>상담</item>
+        <item>교육</item>
+        <item>보건의료</item>
+        <item>농어촌봉사</item>
+        <item>문화체육</item>
+        <item>환경보호</item>
+        <item>행정지원</item>
+        <item>안전예방</item>
+        <item>공익,인권</item>
+        <item>재해,재난</item>
+        <item>국제협력,해외봉사</item>
+        <item>멘토링</item>
+        <item>자원봉사교육</item>
+        <item>국제행사</item>
+        <item>기타</item>
+    </string-array>
+</resources>
