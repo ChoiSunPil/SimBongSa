@@ -1,5 +1,6 @@
 package kr.co.company.simbongsa;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -186,6 +187,17 @@ public class SearchServiceActivity extends AppCompatActivity {
                 }
             }
         });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                SearchProgramData searchProgramData = (SearchProgramData) adapterView.getAdapter().getItem(i);
+                searchTool.setRegit(searchProgramData.getRegistNo());
+                Intent intent = new Intent(getApplicationContext(), DetailProgramActivity.class);
+                intent.putExtra("detailUrl", searchTool.getDetailurl());
+                startActivity(intent);
+            }
+        });
     }
 
     private class getJsonTask extends AsyncTask<String, Void, Integer> {
@@ -225,6 +237,7 @@ public class SearchServiceActivity extends AppCompatActivity {
 
     public int getJson(){
         StringBuffer stringBuffer = new StringBuffer();
+        int k=0;
 
 
 
@@ -240,11 +253,31 @@ public class SearchServiceActivity extends AppCompatActivity {
             if(totalcount.equals("0")) {
                 return -1;
             }
+            else if(totalcount.equals("1")){
+                jsonObject = jsonObject.getJSONObject("response").getJSONObject("body").getJSONObject("items").getJSONObject("item");
+                String programTilte = jsonObject.getString("progrmSj");
+                String programStart = jsonObject.getString("progrmBgnde");
+                String programEnd = jsonObject.getString("progrmEndde");
+                String programNo = jsonObject.getString("progrmRegistNo");
+                String programsido = jsonObject.getString("sidoCd");
+                String programInsti = jsonObject.getString("nanmmbyNm");
+                String programState = jsonObject.getString("progrmSttusSe");
+
+                Log.d("program", programTilte+programNo);
+
+                adapter.addItem(new SearchProgramData(programNo, programTilte, programInsti, programStart, programEnd, programState));
+
+                stringBuffer.append("<"+programTilte+">\n");
+                stringBuffer.append("프로그램 번호: " + programNo+"\n");
+                stringBuffer.append("지역: " + programsido + "\n");
+                stringBuffer.append("프로그램 기간: " + programStart + " ~ " + programEnd + "\n\n" );
+            }
+            else {
                 JSONArray jsonArray = jsonObject.getJSONObject("response").getJSONObject("body").getJSONObject("items").getJSONArray("item");
                 Log.d("pp", "for문 전3");
 
 
-                for(int i=0;i<jsonArray.length();i++){
+                for(int i=0;i<jsonArray.length();i++) {
                     jsonObject = jsonArray.getJSONObject(i);
 
                     String programTilte = jsonObject.getString("progrmSj");
@@ -255,15 +288,15 @@ public class SearchServiceActivity extends AppCompatActivity {
                     String programInsti = jsonObject.getString("nanmmbyNm");
                     String programState = jsonObject.getString("progrmSttusSe");
 
-                    Log.d("program", programTilte+programNo);
+                    Log.d("program", programTilte + programNo);
 
-                    adapter.addItem(new SearchProgramData(Integer.parseInt(programNo), programTilte, programInsti, programStart, programEnd, Integer.parseInt(programState)));
+                    adapter.addItem(new SearchProgramData(programNo, programTilte, programInsti, programStart, programEnd, programState));
 
-                    stringBuffer.append("<"+programTilte+">\n");
-                    stringBuffer.append("프로그램 번호: " + programNo+"\n");
+                    stringBuffer.append("<" + programTilte + ">\n");
+                    stringBuffer.append("프로그램 번호: " + programNo + "\n");
                     stringBuffer.append("지역: " + programsido + "\n");
-                    stringBuffer.append("프로그램 기간: " + programStart + " ~ " + programEnd + "\n\n" );
-
+                    stringBuffer.append("프로그램 기간: " + programStart + " ~ " + programEnd + "\n\n");
+                }
             }
         }catch (Exception e){
             Log.e("error","error:getJson()");

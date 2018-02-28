@@ -5,12 +5,12 @@ package kr.co.company.simbongsa;
  */
 
 public class SearchProgramData {
-    private Integer RegistNo;
+    private String RegistNo;
     private String title;
     private String insti;
     private String start;
     private String end;
-    private Integer state;
+    private String state;
 
     /*프로그램등록번호
     봉사제목
@@ -21,7 +21,7 @@ public class SearchProgramData {
 
     public SearchProgramData(){}
 
-    public SearchProgramData(Integer registNo, String title, String insti, String start, String end, Integer state) {
+    public SearchProgramData(String registNo, String title, String insti, String start, String end, String state) {
         RegistNo = registNo;
         this.title = title;
         this.insti = insti;
@@ -30,7 +30,7 @@ public class SearchProgramData {
         this.state = state;
     }
 
-    public Integer getRegistNo() {
+    public String getRegistNo() {
         return RegistNo;
     }
 
@@ -50,7 +50,7 @@ public class SearchProgramData {
         return end;
     }
 
-    public Integer getState() {
+    public String getState() {
         return state;
     }
 }

@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="kr.co.company.simbongsa">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -18,9 +18,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SearchServiceActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        </activity>
+        <activity
+            android:name=".SearchServiceActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+        <activity android:name=".DetailProgramActivity"></activity>
     </application>
 
 </manifest>

@@ -9,11 +9,12 @@ import java.util.HashMap;
  */
 
 public class SearchTool {
-    private static String serviceUrl = "http://openapi.1365.go.kr/openapi/service/rest/VolunteerPartcptnService/getVltrSearchWordList?&_type=json&schSido=6110000";
-
+    //서비스 키
     private static String KEY = "&ServiceKey=sW0b8TII8dGI4HmtRlJyUFViPXzm74IibcPaLh3Bq79rqZSj0QNNxs%2BzjYVMpT%2BLvYMCPl%2FqIiBd9EyHQjj4Ww%3D%3D";
 
-    private String searchUrl = serviceUrl + KEY;
+    //봉사 프로그램 검색 URL
+    private static String serviceUrl = "http://openapi.1365.go.kr/openapi/service/rest/VolunteerPartcptnService/getVltrSearchWordList?&_type=json&schSido=6110000";
+    private String searchUrl;
 
     private static String start = "&progrmBgnde=";
     private String startDay = null;
@@ -38,15 +39,24 @@ public class SearchTool {
 
     private static String pageNo = "&pageNo=";
 
+    //봉사 프로그램 상세정보 URL
+    private static String detailUrl = "http://openapi.1365.go.kr/openapi/service/rest/VolunteerPartcptnService/getVltrPartcptnItem?&_type=json";
+    private String detailurl2;
+    private String regitNo = "&progrmRegistNo=";
+    private String regit = null;
+
+    //분야, 구 데이터 용 hashmap
     private HashMap<String, String> map = new HashMap<>();
 
     public SearchTool() {
+        searchUrl = serviceUrl + KEY;
+        detailurl2 = detailUrl + KEY + regitNo;
         pushData();
     }
 
     public SearchTool(String startDay, String endDay, String word, String cate, String guGun, String adultYorN, String teenagerYorN) {
         pushData();
-        searchUrl = serviceUrl;
+        searchUrl = serviceUrl + KEY;
         this.startDay = startDay;
         this.endDay = endDay;
         this.word = word;
@@ -168,6 +178,14 @@ public class SearchTool {
 
     public void setGuGun(String guGun) {
         this.guGun = guGun;
+    }
+
+    public String getDetailurl() {
+        return detailurl2 + regit;
+    }
+
+    public void setRegit(String regit) {
+        this.regit = regit;
     }
 
     public void pushData() {
