@@ -10,9 +10,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
-
-import org.json.JSONArray;
 import org.json.JSONObject;
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,7 +22,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Set;
+
 
 public class DetailProgramActivity extends AppCompatActivity {
 
@@ -37,11 +36,12 @@ public class DetailProgramActivity extends AppCompatActivity {
     TextView textView_time;
     GridView gridView_data1;
     GridView gridView_data2;
+    TextView textView_admin;
 
     HashMap<String,String> map;
     String[] s = {"progrmBgnde", "progrmEndde", "actBeginTm", "actEndTm", "noticeBgnde", "noticeEndde"};
     String[] data1 = {"rcritNmpr" , "actWkdy" , "appTotal" , "srvcClCode" , "adultPosblAt" , "yngbgsPosblAt" , "familyPosblAt" , "pbsvntPosblAt" , "grpPosblAt" , "mnnstNm" , "nanmmbyNm" , "actPlace"};
-    String[] data2 = {"nanmmbyNmAdmn", "telno", "fxnum", "postAdres", "email"};
+    String[] data2 = {"telno", "fxnum", "postAdres", "email"};
 
     DetailProgramAdapter adapter;
     DetailProgramAdapter adapter2;
@@ -61,6 +61,7 @@ public class DetailProgramActivity extends AppCompatActivity {
         textView_period = (TextView) findViewById(R.id.textview_period_DetailProgram);
         textView_period2 = (TextView) findViewById(R.id.textview_period2_DetailProgram);
         textView_time = (TextView) findViewById(R.id.textview_time_DetailProgram);
+        textView_admin = (TextView) findViewById(R.id.textview_admin_DetailProgram);
         gridView_data1 = (GridView) findViewById(R.id.gridview_data_DetailProgram);
         gridView_data2 = (GridView) findViewById(R.id.gridview_data2_DetailProgram);
         adapter = new DetailProgramAdapter();
@@ -88,13 +89,14 @@ public class DetailProgramActivity extends AppCompatActivity {
             String tmp;
 
             textView_title.setText(detailProgramData.getData("progrmSj"));
-            textView_content.setText(detailProgramData.getData("progrmCn"));
+            textView_content.setText("\n\n"+detailProgramData.getData("progrmCn")+"\n\n");
             tmp = detailProgramData.getData("progrmBgnde") + " ~ " + detailProgramData.getData("progrmEndde");
             textView_period.setText(tmp);
             tmp = detailProgramData.getData("noticeBgnde") + " ~ " + detailProgramData.getData("noticeEndde");
             textView_period2.setText(tmp);
             tmp = detailProgramData.getData("actBeginTm") + " ~ " + detailProgramData.getData("actEndTm");
             textView_time.setText(tmp);
+            textView_admin.setText("담당자명: "+detailProgramData.getData("nanmmbyNmAdmn"));
 
             gridView_data1.setAdapter(adapter);
             gridView_data2.setAdapter(adapter2);
@@ -123,16 +125,6 @@ public class DetailProgramActivity extends AppCompatActivity {
                 Log.d("value", key);
                 detailProgramData.setData(key,jsonObject1.getString(key));
             }
-
-            /*for(int i=0;i<jsonArray.length();i++){
-                jsonObject = jsonArray.getJSONObject(i);
-                Iterator iterator = jsonObject.keys();
-                while(iterator.hasNext()){
-                    String key = iterator.next().toString();
-                    Log.d("value", key);
-                    detailProgramData.setData(key,jsonObject.getString(key));
-                }
-            }*/
         }catch (Exception e){
             Log.e("error","error:getJson()");
         }
@@ -201,7 +193,7 @@ public class DetailProgramActivity extends AppCompatActivity {
 
             String key = items.get(i);
 
-            detailProgramView.setTextView_key(key);
+            detailProgramView.setTextView_key(detailProgramData.changeName(key));
             detailProgramView.setTextView_value(map.get(key));
             Log.d("value" , key);
 
