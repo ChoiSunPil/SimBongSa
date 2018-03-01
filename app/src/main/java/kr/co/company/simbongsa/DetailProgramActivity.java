@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.TextView;
 import org.json.JSONObject;
@@ -46,6 +48,10 @@ public class DetailProgramActivity extends AppCompatActivity {
     DetailProgramAdapter adapter;
     DetailProgramAdapter adapter2;
 
+    //로딩
+    AlphaAnimation inAnimation;
+    AlphaAnimation outAnimation;
+    FrameLayout frameLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +73,9 @@ public class DetailProgramActivity extends AppCompatActivity {
         adapter = new DetailProgramAdapter();
         adapter2 = new DetailProgramAdapter();
 
+        //로딩
+        frameLayout = (FrameLayout) findViewById(R.id.progressBarHolder);
+
         for(int i=0;i<data1.length;i++){
             adapter.addItem(data1[i]);
         }
@@ -78,6 +87,17 @@ public class DetailProgramActivity extends AppCompatActivity {
     }
 
     private class getJsonTask extends AsyncTask<String, Void, Integer> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            //로딩
+            inAnimation = new AlphaAnimation(0f, 1f);
+            inAnimation.setDuration(200);
+            frameLayout.setAnimation(inAnimation);
+            frameLayout.setVisibility(View.VISIBLE);
+        }
+
         @Override
         protected Integer doInBackground(String... strings) {
             return getJson();
@@ -86,6 +106,7 @@ public class DetailProgramActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Integer check) {
             Log.d("dkdk", check.toString());
+
             String tmp;
 
             textView_title.setText(detailProgramData.getData("progrmSj"));
@@ -100,6 +121,11 @@ public class DetailProgramActivity extends AppCompatActivity {
 
             gridView_data1.setAdapter(adapter);
             gridView_data2.setAdapter(adapter2);
+            //로딩
+            outAnimation = new AlphaAnimation(1f, 0f);
+            outAnimation.setDuration(200);
+            frameLayout.setAnimation(outAnimation);
+            frameLayout.setVisibility(View.GONE);
         }
     }
 

@@ -21,7 +21,8 @@
         <activity
             android:name=".SearchServiceActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
-        <activity android:name=".DetailProgramActivity"></activity>
+        <activity android:name=".DetailProgramActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
     </application>
 
 </manifest>
